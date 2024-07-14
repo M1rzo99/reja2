@@ -5,6 +5,8 @@ const express = require("express");
 const app = express(); // express opbj dan insteancde oldik
 const http = require("http");
 const chalk = require("chalk");
+const { log } = require("console");
+const { default: test } = require("node:test");
 
 // 1# kirish codlari:
 app.use(express.static("public")); // public folderini clientlarga ochib berayapmiz/ keyinchalik css va img larni joylaymiz
@@ -15,18 +17,19 @@ app.use(express.urlencoded({ extended: true })); // HTMl forumdan post qilingan 
 
 // #3 bssr(backend server sider rendering) + use ejs : views codelar
 app.set("views", "views");
-app.set("view enjine", "ejs"); // ejs orqali html ni backend da yasaymiz
+app.set("view engine", "ejs"); // ejs orqali html ni backend da yasaymiz
 
 // #4 router - agar boruzerda  qidirganda qaysi nom bn qidirsak shu bolimga otirib beradi.
 
+app.post("/create-item", (req, res) => {
+  // post user kiritgan (brauzerga)  malumotni ozi bn olib keladi va data basega osha malumotni yozadi.
+  console.log(req.body);
+  res.json({ test: "success" });
+});
+
 app.get("/", function (req, res) {
-  res.end(`<h1 style="color:blue">Hello World for Mirzo</h1>`);
-});
-app.get("/gift", function (req, res) {
-  res.end(`<h1 style="color:grey">You are in Gifft page</h1>`);
-});
-app.get("/hello", function (req, res) {
-  res.end(`<h1 style="color:yellow">Hello Pages</h1>`);
+  // get data basedagi malumotni user brauzerda oqishi un ishlatadi.
+  res.render("harid");
 });
 
 const server = http.createServer(app);
@@ -36,3 +39,5 @@ server.listen(PORT, function () {
     ` Bu Sever  ${chalk.red(PORT)} portda muvoffaqiyatli  ishlayapti!`
   );
 });
+
+// notes:  mgithub ni ulashda tooken yasab uni git hub ni install qilmoqchi bolganda birga i qiliash kk (@ qolib ketmasin)
