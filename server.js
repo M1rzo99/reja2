@@ -32,7 +32,7 @@ app.get("/", function (req, res) {
   res.render("harid");
 });
 
-const server = http.createServer(app);
+const server = http.createServer(app); // hamma qilingan requeestaar (app ga keladi)
 let PORT = 1000;
 server.listen(PORT, function () {
   console.log(
